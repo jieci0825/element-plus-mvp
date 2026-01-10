@@ -5,7 +5,7 @@ import { ExtractPropTypes, PropType } from 'vue'
 export const buttonProps = {
     /** 按钮类型 */
     type: {
-        type: String as PropType<'primary' | 'secondary'>,
+        type: String as PropType<'primary' | 'secondary' | 'danger'>,
         default: 'primary'
     },
     /** 按钮大小 */
