@@ -1,0 +1,104 @@
+@use 'sass:map';
+@use 'common/var' as *;
+@use 'mixins/mixins' as *;
+@use 'mixins/var' as *;
+@use 'mixins/function' as *;
+
+/** Button 组件变量 */
+$button: () !default;
+$button: map.merge(
+    (
+        'text-color': map.get($text-color, 'regular'),
+        'bg-color': map.get($fill-color, 'blank'),
+        'border-color': map.get($border-color, ''),
+        'hover-text-color': map.get($colors, 'primary'),
+        'hover-bg-color': #f5f5f5,
+        'hover-border-color': #404040
+    ),
+    $button
+);
+
+$button-padding: () !default;
+$button-padding: map.merge(
+    (
+        'large': 12px 20px,
+        'default': 8px 16px,
+        'small': 5px 12px
+    ),
+    $button-padding
+);
+
+@include b(button) {
+    @include set-component-css-var('button', $button);
+}
+
+@include b(button) {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    height: getCssVar('component-size', 'default');
+    white-space: nowrap;
+    cursor: pointer;
+    color: getCssVar('button', 'text-color');
+    text-align: center;
+    box-sizing: border-box;
+    outline: none;
+    transition: 0.1s;
+    font-weight: 500;
+    user-select: none;
+    vertical-align: middle;
+    -webkit-appearance: none;
+    background-color: getCssVar('button', 'bg-color');
+    border: 1px solid getCssVar('button', 'border-color');
+    border-radius: getCssVar('border-radius', 'base');
+    padding: map.get($button-padding, 'default');
+    font-size: getCssVar('font-size', 'default');
+
+    &:hover {
+        color: getCssVar('button', 'hover-text-color');
+        border-color: getCssVar('button', 'hover-border-color');
+        background-color: getCssVar('button', 'hover-bg-color');
+    }
+
+    &:active {
+        color: getCssVar('button', 'hover-text-color');
+        border-color: getCssVar('color-primary');
+        background-color: getCssVar('button', 'hover-bg-color');
+    }
+
+    &:focus-visible {
+        outline: 2px solid getCssVar('color-primary');
+        outline-offset: 1px;
+    }
+
+    // 尺寸：large
+    @include m(large) {
+        height: getCssVar('component-size', 'large');
+        padding: map.get($button-padding, 'large');
+        font-size: getCssVar('font-size', 'large');
+    }
+
+    // 尺寸：small
+    @include m(small) {
+        height: getCssVar('component-size', 'small');
+        padding: map.get($button-padding, 'small');
+        font-size: getCssVar('font-size', 'small');
+        border-radius: getCssVar('border-radius', 'small');
+    }
+
+    // 类型：primary
+    @include m(primary) {
+        --ep-button-text-color: #ffffff;
+        --ep-button-bg-color: #{map.get($colors, 'primary')};
+        --ep-button-border-color: #{map.get($colors, 'primary')};
+        --ep-button-hover-text-color: #ffffff;
+        --ep-button-hover-bg-color: #404040;
+        --ep-button-hover-border-color: #404040;
+    }
+
+    // 类型：secondary（默认样式）
+    @include m(secondary) {
+        // 使用默认变量
+    }
+}

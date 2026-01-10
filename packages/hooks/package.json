@@ -1,0 +1,7 @@
+{
+    "name": "@ep/hooks",
+    "version": "1.0.0",
+    "peerDependencies": {
+        "vue": "^3.4.0"
+    }
+}

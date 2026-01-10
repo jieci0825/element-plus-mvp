@@ -1,0 +1,12 @@
+{
+    "name": "@ep/build",
+    "private": true,
+    "version": "1.0.0",
+    "main": "index.ts",
+    "scripts": {
+        "build": "echo 'build script'"
+    },
+    "devDependencies": {
+        "rollup": "^4.9.0"
+    }
+}

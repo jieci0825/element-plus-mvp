@@ -1,0 +1,42 @@
+@use 'config' as *;
+
+/**
+ * 拼接 CSS 变量名
+ * joinVarName(('button', 'text-color')) => --ep-button-text-color
+ * joinVarName(('color', 'primary'))     => --ep-color-primary
+ */
+@function joinVarName($list) {
+    $name: '--' + $namespace;
+    @each $item in $list {
+        @if $item != '' {
+            $name: $name + '-' + $item;
+        }
+    }
+    @return $name;
+}
+
+/**
+ * 获取 CSS 变量名
+ * getCssVarName('button', 'text-color') => --ep-button-text-color
+ * getCssVarName('color-primary')        => --ep-color-primary
+ */
+@function getCssVarName($args...) {
+    @return joinVarName($args);
+}
+
+/**
+ * 获取 CSS 变量值
+ * getCssVar('button', 'text-color') => var(--ep-button-text-color)
+ * getCssVar('color-primary')        => var(--ep-color-primary)
+ */
+@function getCssVar($args...) {
+    @return var(#{joinVarName($args)});
+}
+
+/**
+ * 获取带默认值的 CSS 变量
+ * getCssVarWithDefault(('button', 'text-color'), #333) => var(--ep-button-text-color, #333)
+ */
+@function getCssVarWithDefault($args, $default) {
+    @return var(#{joinVarName($args)}, #{$default});
+}

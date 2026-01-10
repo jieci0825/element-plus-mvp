@@ -1,0 +1,34 @@
+@use 'sass:map';
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+/** 浅色主题 CSS 变量 */
+:root {
+    color-scheme: light;
+
+    // 基础色
+    @include set-css-var-value('color-white', map.get($colors, 'white'));
+    @include set-css-var-value('color-black', map.get($colors, 'black'));
+    @include set-css-var-value('color-primary', map.get($colors, 'primary'));
+
+    // 背景色
+    @include set-component-css-var('bg-color', $bg-color);
+
+    // 文本色
+    @include set-component-css-var('text-color', $text-color);
+
+    // 边框色
+    @include set-component-css-var('border-color', $border-color);
+
+    // 填充色
+    @include set-component-css-var('fill-color', $fill-color);
+
+    // 字体
+    @include set-component-css-var('font-size', $font-size);
+
+    // 圆角
+    @include set-component-css-var('border-radius', $border-radius);
+
+    // 组件尺寸
+    @include set-component-css-var('component-size', $component-size);
+}

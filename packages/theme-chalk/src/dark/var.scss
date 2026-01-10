@@ -1,0 +1,39 @@
+@use 'sass:map';
+
+/** 暗色主题背景色 */
+$bg-color: () !default;
+$bg-color: map.merge(
+    (
+        '': #141414
+    ),
+    $bg-color
+);
+
+/** 暗色主题文本色 */
+$text-color: () !default;
+$text-color: map.merge(
+    (
+        'primary': rgba(255, 255, 255, 0.95),
+        'regular': rgba(255, 255, 255, 0.85)
+    ),
+    $text-color
+);
+
+/** 暗色主题边框色 */
+$border-color: () !default;
+$border-color: map.merge(
+    (
+        '': rgba(255, 255, 255, 0.25)
+    ),
+    $border-color
+);
+
+/** 暗色主题填充色 */
+$fill-color: () !default;
+$fill-color: map.merge(
+    (
+        '': rgba(255, 255, 255, 0.12),
+        'blank': transparent
+    ),
+    $fill-color
+);

@@ -1,0 +1,26 @@
+{
+    "name": "elementplus-demo",
+    "private": true,
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "pnpm -C play dev"
+    },
+    "dependencies": {
+        "@ep/components": "workspace:*",
+        "@ep/hooks": "workspace:*",
+        "@ep/theme-chalk": "workspace:*",
+        "@ep/utils": "workspace:*",
+        "sass": "^1.97.2"
+    },
+    "devDependencies": {
+        "@rollup/plugin-commonjs": "^29.0.0",
+        "@rollup/plugin-node-resolve": "^16.0.3",
+        "@vitejs/plugin-vue": "^6.0.3",
+        "fast-glob": "^3.3.3",
+        "rollup": "^4.55.1",
+        "rollup-plugin-esbuild": "^6.2.1",
+        "typescript": "^5.9.3",
+        "vue": "^3.4.0",
+        "vue-tsc": "^3.2.2"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "name": "ep",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "dependencies": {
+        "@ep/components": "workspace:*",
+        "@ep/hooks": "workspace:*",
+        "@ep/theme-chalk": "workspace:*",
+        "@ep/utils": "workspace:*"
+    },
+    "peerDependencies": {
+        "vue": "^3.4.0"
+    }
+}

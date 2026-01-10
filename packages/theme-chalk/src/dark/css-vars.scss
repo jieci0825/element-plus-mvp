@@ -1,0 +1,21 @@
+@use '../mixins/var' as *;
+@use '../mixins/mixins' as *;
+@use './var' as *;
+
+/** 暗色主题 CSS 变量覆盖 */
+html.dark {
+    color-scheme: dark;
+
+    // 背景色
+    @include set-component-css-var('bg-color', $bg-color);
+
+    // 文本色
+    @include set-component-css-var('text-color', $text-color);
+
+    // 边框色
+    @include set-component-css-var('border-color', $border-color);
+
+    // 填充色
+    @include set-component-css-var('fill-color', $fill-color);
+}
+

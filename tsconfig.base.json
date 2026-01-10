@@ -1,0 +1,28 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "target": "es2018",
+        "module": "esnext",
+        "baseUrl": ".",
+        "sourceMap": false,
+        "moduleResolution": "node",
+        "allowJs": false,
+        "strict": true,
+        "noUnusedLocals": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "removeComments": false,
+        "rootDir": ".",
+        "types": [],
+        "paths": {
+            "@ep/components": ["packages/components"],
+            "@ep/components/*": ["packages/components/*"],
+            "@ep/utils": ["packages/utils"],
+            "@ep/utils/*": ["packages/utils/*"],
+            "@ep/hooks": ["packages/hooks"],
+            "ep": ["packages/ep"]
+        },
+        "preserveSymlinks": true
+    }
+}
