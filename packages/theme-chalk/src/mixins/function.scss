@@ -5,13 +5,18 @@
  * joinVarName(('button', 'text-color')) => --ep-button-text-color
  * joinVarName(('color', 'primary'))     => --ep-color-primary
  */
+// $list 表示一个列表，列表中的每个元素都是字符串。语法为：('aaa', 'bbb', 'ccc')
 @function joinVarName($list) {
+    // 这里是进行 css 变量名拼接，固定以 -- 开头，后面跟上命名空间(el ep a...等等)
     $name: '--' + $namespace;
+    // 遍历列表中的每个元素
     @each $item in $list {
+        // 如果元素不为空，则拼接元素
         @if $item != '' {
             $name: $name + '-' + $item;
         }
     }
+    // 返回拼接好的 css 变量名
     @return $name;
 }
 
@@ -20,6 +25,7 @@
  * getCssVarName('button', 'text-color') => --ep-button-text-color
  * getCssVarName('color-primary')        => --ep-color-primary
  */
+// $args 表示一个列表，列表中的每个元素都是字符串。语法为：('aaa', 'bbb', 'ccc')。类似 js 的数组
 @function getCssVarName($args...) {
     @return joinVarName($args);
 }
@@ -29,6 +35,7 @@
  * getCssVar('button', 'text-color') => var(--ep-button-text-color)
  * getCssVar('color-primary')        => var(--ep-color-primary)
  */
+// $args 表示接收不定数量的参数，并自动打包成一个 List。
 @function getCssVar($args...) {
     @return var(#{joinVarName($args)});
 }
@@ -37,6 +44,7 @@
  * 获取带默认值的 CSS 变量
  * getCssVarWithDefault(('button', 'text-color'), #333) => var(--ep-button-text-color, #333)
  */
+// 实际也是得到一个 css 变量名，只不过后面加上了默认值。
 @function getCssVarWithDefault($args, $default) {
     @return var(#{joinVarName($args)}, #{$default});
 }

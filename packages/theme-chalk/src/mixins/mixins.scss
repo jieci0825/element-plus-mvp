@@ -4,7 +4,14 @@
 @forward 'function';
 @forward 'var';
 
-/** BEM Block */
+$B: null !default;
+
+/**
+ * BEM Block 块级选择器
+ * @example
+ *   @include b(button) { color: red; }
+ *   // => .ep-button { color: red; }
+ */
 @mixin b($block) {
     $B: $namespace + $common-separator + $block !global;
     .#{$B} {
@@ -12,7 +19,19 @@
     }
 }
 
-/** BEM Element */
+/**
+ * BEM Element 元素选择器，需嵌套在 b() 内使用
+ * @example
+ *   @include b(button) {
+ *     @include e(icon) { margin-right: 4px; }
+ *   }
+ *   // => .ep-button__icon { margin-right: 4px; }
+ *
+ *   @include b(input) {
+ *     @include e((prefix, suffix)) { color: gray; }
+ *   }
+ *   // => .ep-input__prefix, .ep-input__suffix { color: gray; }
+ */
 @mixin e($element) {
     $selector: &;
     $currentSelector: '';
@@ -32,7 +51,19 @@
     }
 }
 
-/** BEM Modifier */
+/**
+ * BEM Modifier 修饰符选择器，需嵌套在 b() 内使用
+ * @example
+ *   @include b(button) {
+ *     @include m(primary) { background: blue; }
+ *   }
+ *   // => .ep-button--primary { background: blue; }
+ *
+ *   @include b(button) {
+ *     @include m((large, small)) { font-weight: bold; }
+ *   }
+ *   // => .ep-button--large, .ep-button--small { font-weight: bold; }
+ */
 @mixin m($modifier) {
     $selector: &;
     $currentSelector: '';
@@ -51,7 +82,14 @@
     }
 }
 
-/** 状态类 */
+/**
+ * 状态类选择器，用于表示组件状态，需嵌套在 b() 内使用
+ * @example
+ *   @include b(button) {
+ *     @include when(disabled) { opacity: 0.5; }
+ *   }
+ *   // => .ep-button.is-disabled { opacity: 0.5; }
+ */
 @mixin when($state) {
     @at-root {
         &.#{$state-prefix + $state} {
@@ -60,7 +98,12 @@
     }
 }
 
-/** 暗色主题作用域 */
+/**
+ * 暗色主题作用域，在 html.dark 下生成对应块级选择器
+ * @example
+ *   @include dark(button) { background: #333; }
+ *   // => html.dark .ep-button { background: #333; }
+ */
 @mixin dark($block) {
     html.dark {
         @include b($block) {

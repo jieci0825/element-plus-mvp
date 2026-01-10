@@ -3,17 +3,25 @@
 
 /** 设置单个 CSS 变量 */
 @mixin set-css-var-value($name, $value) {
+    // #{ ... } 插值语法，将字符串直接插入到 CSS 中。
+    // oinVarName($name) 得到通过拼接得到 css 变量名
+    // #{$value} 插值语法，将变量插入到 CSS 中。
+    // 两者通过 `:` 连接，形成完整的 CSS 变量声明。
     #{joinVarName($name)}: #{$value};
 }
 
 /** 批量设置组件 CSS 变量 */
+// $name 表示组件名称，如 button、input、select 等。
+// $variables 表示一个 Map，键值对表示 CSS 属性名和对应的值。
 @mixin set-component-css-var($name, $variables) {
+    // 遍历 $variables 中的每个键值对
     @each $attribute, $value in $variables {
         @if $attribute == '' {
+            // 如果键为空，则直接使用 name 作为 css 变量名
             #{getCssVarName($name)}: #{$value};
         } @else {
+            // 如果不为空，则使用 name 和 attribute 拼接得到 css 变量名
             #{getCssVarName($name, $attribute)}: #{$value};
         }
     }
 }
-

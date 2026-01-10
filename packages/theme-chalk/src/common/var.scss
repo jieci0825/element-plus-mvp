@@ -1,7 +1,11 @@
+// 引入 `sass:map` 模块，用于合并变量
 @use 'sass:map';
 
 /** 基础色 */
+// `colors` 表示声明变量，值为空对象。
+// `!default` 表示默认值，如果变量未定义，则使用默认值。即如果之前已经有人定义过 $colors，那就别覆盖；如果没有，才用这个。
 $colors: () !default;
+// `map.merge` 表示合并变量，第一个参数是设置的默认值，第二个参数就是用户传入的值变量。类似 Object.assign 。
 $colors: map.merge(
     (
         'white': #ffffff,
@@ -10,6 +14,13 @@ $colors: map.merge(
     ),
     $colors
 );
+
+/**
+因此上面的整段代码表示：
+- !default：允许外部提前注入
+- map.merge：在保留默认值的同时，允许用户精细覆盖
+- 最终实现一个可扩展、可覆盖、可维护的主题色系统
+  */
 
 /** 文本色 */
 $text-color: () !default;
