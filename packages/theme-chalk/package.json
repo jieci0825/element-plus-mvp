@@ -1,4 +1,16 @@
 {
     "name": "@ep/theme-chalk",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "build": "node ./build.mjs",
+        "clean": "node -e \"require('node:fs').rmSync('./dist', { recursive: true, force: true })\""
+    },
+    "files": [
+        "src",
+        "dist"
+    ],
+    "peerDependencies": {
+        "sass": "^1.0.0"
+    }
 }
