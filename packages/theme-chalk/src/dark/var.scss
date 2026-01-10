@@ -1,5 +1,21 @@
 @use 'sass:map';
 
+/** 暗色主题主色调 */
+$color-primary: #e2e8f1;
+$color-secondary: #27272a;
+$color-danger: #7f1d1d;
+
+/** 暗色主题前景色 */
+$foreground-color: () !default;
+$foreground-color: map.merge(
+    (
+        'primary': #18181b,
+        'secondary': #fafafa,
+        'danger': #fef2f2
+    ),
+    $foreground-color
+);
+
 /** 暗色主题背景色 */
 $bg-color: () !default;
 $bg-color: map.merge(
@@ -13,8 +29,8 @@ $bg-color: map.merge(
 $text-color: () !default;
 $text-color: map.merge(
     (
-        'primary': rgba(255, 255, 255, 0.95),
-        'regular': rgba(255, 255, 255, 0.85)
+        'primary': #f2f2f2,
+        'regular': #d9d9d9
     ),
     $text-color
 );
@@ -23,7 +39,7 @@ $text-color: map.merge(
 $border-color: () !default;
 $border-color: map.merge(
     (
-        '': rgba(255, 255, 255, 0.25)
+        '': #4a4a4a
     ),
     $border-color
 );
@@ -32,7 +48,7 @@ $border-color: map.merge(
 $fill-color: () !default;
 $fill-color: map.merge(
     (
-        '': rgba(255, 255, 255, 0.12),
+        '': #333333,
         'blank': transparent
     ),
     $fill-color

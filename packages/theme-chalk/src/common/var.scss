@@ -10,9 +10,22 @@ $colors: map.merge(
     (
         'white': #ffffff,
         'black': #000000,
-        'primary': #171717
+        'primary': #171717,
+        'secondary': #f4f4f5,
+        'danger': #ef4444
     ),
     $colors
+);
+
+/** 前景色（用于按钮等组件的文字颜色，与背景色形成对比） */
+$foreground-color: () !default;
+$foreground-color: map.merge(
+    (
+        'primary': #ffffff,
+        'secondary': #27272a,
+        'danger': #ffffff
+    ),
+    $foreground-color
 );
 
 /**

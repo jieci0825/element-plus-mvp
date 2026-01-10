@@ -8,12 +8,15 @@
 $button: () !default;
 $button: map.merge(
     (
-        'text-color': map.get($text-color, 'regular'),
-        'bg-color': map.get($fill-color, 'blank'),
+        'text-color': map.get($foreground-color, 'primary'),
+        'bg-color': map.get($colors, 'primary'),
         'border-color': map.get($border-color, ''),
-        'hover-text-color': map.get($colors, 'primary'),
-        'hover-bg-color': #f5f5f5,
-        'hover-border-color': #404040
+        'hover-text-color': map.get($foreground-color, 'primary'),
+        'hover-bg-color': map.get($colors, 'primary'),
+        'hover-border-color': map.get($foreground-color, 'primary'),
+        'disabled-text-color': #a8abb2,
+        'disabled-bg-color': map.get($fill-color, 'blank'),
+        'disabled-border-color': #e4e7ed
     ),
     $button
 );
@@ -28,10 +31,12 @@ $button-padding: map.merge(
     $button-padding
 );
 
+/** 设置组件级 CSS 变量 */
 @include b(button) {
     @include set-component-css-var('button', $button);
 }
 
+/** 按钮基础样式 */
 @include b(button) {
     display: inline-flex;
     justify-content: center;
@@ -59,12 +64,14 @@ $button-padding: map.merge(
         color: getCssVar('button', 'hover-text-color');
         border-color: getCssVar('button', 'hover-border-color');
         background-color: getCssVar('button', 'hover-bg-color');
+        outline: none;
     }
 
     &:active {
         color: getCssVar('button', 'hover-text-color');
-        border-color: getCssVar('color-primary');
+        border-color: getCssVar('button', 'hover-border-color');
         background-color: getCssVar('button', 'hover-bg-color');
+        outline: none;
     }
 
     &:focus-visible {
@@ -72,14 +79,18 @@ $button-padding: map.merge(
         outline-offset: 1px;
     }
 
-    // 尺寸：large
+    & + & {
+        margin-left: 12px;
+    }
+
+    /** 尺寸：large */
     @include m(large) {
         height: getCssVar('component-size', 'large');
         padding: map.get($button-padding, 'large');
         font-size: getCssVar('font-size', 'large');
     }
 
-    // 尺寸：small
+    /** 尺寸：small */
     @include m(small) {
         height: getCssVar('component-size', 'small');
         padding: map.get($button-padding, 'small');
@@ -87,18 +98,103 @@ $button-padding: map.merge(
         border-radius: getCssVar('border-radius', 'small');
     }
 
-    // 类型：primary
+    /** 类型：primary */
     @include m(primary) {
-        --ep-button-text-color: #ffffff;
-        --ep-button-bg-color: #{map.get($colors, 'primary')};
-        --ep-button-border-color: #{map.get($colors, 'primary')};
-        --ep-button-hover-text-color: #ffffff;
-        --ep-button-hover-bg-color: #404040;
-        --ep-button-hover-border-color: #404040;
+        --ep-button-text-color: #{getCssVar('foreground-color', 'primary')};
+        --ep-button-bg-color: #{getCssVar('color-primary')};
+        --ep-button-border-color: #{getCssVar('color-primary')};
+        --ep-button-hover-text-color: #{getCssVar('foreground-color', 'primary')};
+        --ep-button-hover-bg-color: #{getCssVar('color-primary')};
+        --ep-button-hover-border-color: #{getCssVar('color-primary')};
+
+        &:hover,
+        &:active {
+            opacity: 0.85;
+        }
     }
 
-    // 类型：secondary（默认样式）
+    /** 类型：secondary */
     @include m(secondary) {
-        // 使用默认变量
+        --ep-button-text-color: #{getCssVar('foreground-color', 'secondary')};
+        --ep-button-bg-color: #{getCssVar('color-secondary')};
+        --ep-button-border-color: #{getCssVar('color-secondary')};
+        --ep-button-hover-text-color: #{getCssVar(
+                'foreground-color',
+                'secondary'
+            )};
+        --ep-button-hover-bg-color: #{getCssVar('color-secondary')};
+        --ep-button-hover-border-color: #{getCssVar('color-secondary')};
+
+        &:hover,
+        &:active {
+            opacity: 0.85;
+        }
+    }
+
+    /** 类型：danger */
+    @include m(danger) {
+        --ep-button-text-color: #{getCssVar('foreground-color', 'danger')};
+        --ep-button-bg-color: #{getCssVar('color-danger')};
+        --ep-button-border-color: #{getCssVar('color-danger')};
+        --ep-button-hover-text-color: #{getCssVar('foreground-color', 'danger')};
+        --ep-button-hover-bg-color: #{getCssVar('color-danger')};
+        --ep-button-hover-border-color: #{getCssVar('color-danger')};
+
+        &:hover,
+        &:active {
+            opacity: 0.85;
+        }
+    }
+
+    /** 状态：plain */
+    @include when(plain) {
+        --ep-button-bg-color: #{map.get($fill-color, 'blank')};
+        --ep-button-hover-bg-color: #{map.get($fill-color, 'blank')};
+
+        &.#{$namespace}-button--primary {
+            --ep-button-text-color: #{getCssVar('color-primary')};
+            --ep-button-border-color: #{getCssVar('color-primary')};
+            --ep-button-hover-text-color: #{getCssVar(
+                    'foreground-color',
+                    'primary'
+                )};
+            --ep-button-hover-bg-color: #{getCssVar('color-primary')};
+            --ep-button-hover-border-color: #{getCssVar('color-primary')};
+        }
+
+        &.#{$namespace}-button--secondary {
+            --ep-button-text-color: #{getCssVar('text-color', 'regular')};
+            --ep-button-border-color: #{getCssVar('border-color')};
+            --ep-button-hover-text-color: #{getCssVar(
+                    'foreground-color',
+                    'secondary'
+                )};
+            --ep-button-hover-bg-color: #{getCssVar('color-secondary')};
+            --ep-button-hover-border-color: #{getCssVar('color-secondary')};
+        }
+
+        &.#{$namespace}-button--danger {
+            --ep-button-text-color: #{getCssVar('color-danger')};
+            --ep-button-border-color: #{getCssVar('color-danger')};
+            --ep-button-hover-text-color: #{getCssVar(
+                    'foreground-color',
+                    'danger'
+                )};
+            --ep-button-hover-bg-color: #{getCssVar('color-danger')};
+            --ep-button-hover-border-color: #{getCssVar('color-danger')};
+        }
+    }
+
+    /** 状态：disabled */
+    @include when(disabled) {
+        &,
+        &:hover,
+        &:active {
+            color: getCssVar('button', 'disabled-text-color');
+            cursor: not-allowed;
+            background-color: getCssVar('button', 'disabled-bg-color');
+            border-color: getCssVar('button', 'disabled-border-color');
+            opacity: 1;
+        }
     }
 }

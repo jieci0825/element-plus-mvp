@@ -6,6 +6,14 @@
 html.dark {
     color-scheme: dark;
 
+    // 主色调
+    @include set-css-var-value('color-primary', $color-primary);
+    @include set-css-var-value('color-secondary', $color-secondary);
+    @include set-css-var-value('color-danger', $color-danger);
+
+    // 前景色
+    @include set-component-css-var('foreground-color', $foreground-color);
+
     // 背景色
     @include set-component-css-var('bg-color', $bg-color);
 
@@ -18,4 +26,3 @@ html.dark {
     // 填充色
     @include set-component-css-var('fill-color', $fill-color);
 }
-

@@ -10,6 +10,14 @@
     @include set-css-var-value('color-white', map.get($colors, 'white'));
     @include set-css-var-value('color-black', map.get($colors, 'black'));
     @include set-css-var-value('color-primary', map.get($colors, 'primary'));
+    @include set-css-var-value(
+        'color-secondary',
+        map.get($colors, 'secondary')
+    );
+    @include set-css-var-value('color-danger', map.get($colors, 'danger'));
+
+    // 前景色
+    @include set-component-css-var('foreground-color', $foreground-color);
 
     // 背景色
     @include set-component-css-var('bg-color', $bg-color);
