@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
-// 为了方便，直接引入所有组件样式
 import '@ep/theme-chalk/src/index.scss'
 import './style.css'
 import App from './App.vue'
+import router from './router'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
