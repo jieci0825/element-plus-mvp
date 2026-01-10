@@ -15,6 +15,7 @@ import { EpButton } from '@ep/components'
             <h2>类型</h2>
             <EpButton type="primary">Primary</EpButton>
             <EpButton type="secondary">Secondary</EpButton>
+            <EpButton type="danger">Danger</EpButton>
         </section>
 
         <section>
