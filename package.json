@@ -3,7 +3,8 @@
     "private": true,
     "version": "1.0.0",
     "scripts": {
-        "dev": "pnpm -C play dev"
+        "dev": "pnpm -C play dev",
+        "build:theme": "pnpm -C packages/theme-chalk build"
     },
     "dependencies": {
         "@ep/components": "workspace:*",
