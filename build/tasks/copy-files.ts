@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { DistDir, EpDir, EpOutput } from '../path-map'
+import { DistDir, EpDir, EpOutput, ThemeChalkDir } from '../path-map'
 
 /** dist/types */
 const typesDir = path.resolve(DistDir, 'types')
@@ -109,5 +109,12 @@ export async function copyTypesAndFiles() {
     }
     if (fs.existsSync(packageSrc)) {
         fs.copyFileSync(packageSrc, path.resolve(EpOutput, 'package.json'))
+    }
+
+    // 5. 复制 theme-chalk/dist 到 dist/ep/theme-chalk
+    const themeChalkDistDir = path.resolve(ThemeChalkDir, 'dist')
+    const themeChalkOutputDir = path.resolve(EpOutput, 'theme-chalk')
+    if (fs.existsSync(themeChalkDistDir)) {
+        copyDir(themeChalkDistDir, themeChalkOutputDir)
     }
 }
