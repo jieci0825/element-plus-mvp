@@ -1,14 +1,52 @@
 {
     "name": "ep",
     "version": "1.0.0",
-    "main": "index.ts",
-    "dependencies": {
-        "@ep/components": "workspace:*",
-        "@ep/hooks": "workspace:*",
-        "@ep/theme-chalk": "workspace:*",
-        "@ep/utils": "workspace:*"
+    "main": "lib/index.js",
+    "module": "es/index.mjs",
+    "types": "es/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./es/index.d.ts",
+            "import": "./es/index.mjs",
+            "require": "./lib/index.js"
+        },
+        "./global": {
+            "types": "./global.d.ts"
+        },
+        "./es": {
+            "types": "./es/index.d.ts",
+            "import": "./es/index.mjs"
+        },
+        "./lib": {
+            "types": "./lib/index.d.ts",
+            "require": "./lib/index.js"
+        },
+        "./es/*.mjs": {
+            "types": "./es/*.d.ts",
+            "import": "./es/*.mjs"
+        },
+        "./es/*": {
+            "types": [
+                "./es/*.d.ts",
+                "./es/*/index.d.ts"
+            ],
+            "import": "./es/*.mjs"
+        },
+        "./lib/*.js": {
+            "types": "./lib/*.d.ts",
+            "require": "./lib/*.js"
+        },
+        "./lib/*": {
+            "types": [
+                "./lib/*.d.ts",
+                "./lib/*/index.d.ts"
+            ],
+            "require": "./lib/*.js"
+        },
+        "./*": "./*"
     },
+    "dependencies": {},
     "peerDependencies": {
-        "vue": "^3.4.0"
+        "vue": "^3.5.0"
     }
 }
