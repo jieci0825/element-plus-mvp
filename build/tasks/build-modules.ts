@@ -97,10 +97,10 @@ async function buildModulesStyles() {
     const bundle = await rollup({
         input,
         plugins,
-        treeshake: false,
-        external: id => {
-            return id.startsWith('@ep/components/base/style')
-        }
+        treeshake: false
+        // external: id => {
+        //     return id.startsWith('@ep/components/base/style')
+        // }
     })
 
     await writeBundles(
