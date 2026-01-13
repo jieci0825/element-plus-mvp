@@ -4,7 +4,8 @@ import { DistDir } from './path-map'
 import {
     buildModules,
     generateTypesDefinitions,
-    copyTypesAndFiles
+    copyTypesAndFiles,
+    buildTheme
 } from './tasks'
 import { runTask } from './helper'
 
@@ -22,6 +23,7 @@ async function build() {
     await runTask(clearDist)
     await runTask(createDist)
     await runTask(buildModules)
+    await runTask(buildTheme)
     await runTask(generateTypesDefinitions)
     await runTask(copyTypesAndFiles)
 }
