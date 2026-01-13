@@ -5,7 +5,8 @@
     "scripts": {
         "dev": "pnpm -C play dev",
         "build": "pnpm -C build build",
-        "build:theme": "pnpm -C packages/theme-chalk build"
+        "build:theme": "pnpm -C packages/theme-chalk build",
+        "build:types": "vue-tsc -p tsconfig.build.json --declaration --emitDeclarationOnly"
     },
     "dependencies": {
         "@ep/components": "workspace:*",

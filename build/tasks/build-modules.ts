@@ -1,6 +1,7 @@
 import { excludeFiles, generateExternal, runTask } from '../helper'
+import path from 'node:path'
 import fg from 'fast-glob'
-import { EpDir, PackagesDir } from '../path-map'
+import { ComponentsDir, EpDir, PackagesDir } from '../path-map'
 import {
     rollup,
     type Plugin,
@@ -43,10 +44,14 @@ const plugins: Plugin[] = [
     })
 ]
 
+function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {
+    return Promise.all(options.map(option => bundle.write(option)))
+}
+
 async function buildModulesComponents() {
     // 得到所有需要打包的组件文件，每一个文件都是一个单独入口文件
     const input = excludeFiles(
-        await fg(['**/*.{js,ts,vue}', '!**/style/(index|css).{js,ts,vue}'], {
+        await fg(['**/*.{js,ts,vue}', '!**/styles/(index|css).{js,ts,vue}'], {
             cwd: PackagesDir,
             absolute: true, // 是否返回绝对路径
             onlyFiles: true // 是否只返回文件，即目录的绝对路径不返回
@@ -80,10 +85,42 @@ async function buildModulesComponents() {
     )
 }
 
-function writeBundles(bundle: RollupBuild, options: OutputOptions[]) {
-    return Promise.all(options.map(option => bundle.write(option)))
+async function buildModulesStyles() {
+    const input = excludeFiles(
+        await fg('**/styles/(index|css).{js,ts,vue}', {
+            cwd: PackagesDir,
+            absolute: true,
+            onlyFiles: true
+        })
+    )
+
+    const bundle = await rollup({
+        input,
+        plugins,
+        treeshake: false,
+        external: id => {
+            return id.startsWith('@ep/components/base/style')
+        }
+    })
+
+    await writeBundles(
+        bundle,
+        buildConfigEntries.map(([module, config]): OutputOptions => {
+            return {
+                format: config.format,
+                dir: path.resolve(config.output.path, 'components'),
+                exports: module === 'cjs' ? 'named' : undefined,
+                preserveModules: true,
+                // 样式入口来自 packages/components，为了保留组件下 styles 目录结构，需要从 ComponentsDir 开始裁剪
+                preserveModulesRoot: ComponentsDir,
+                sourcemap: true,
+                entryFileNames: `[name].${config.ext}`
+            }
+        })
+    )
 }
 
 export async function buildModules() {
     await runTask(buildModulesComponents)
+    await runTask(buildModulesStyles)
 }

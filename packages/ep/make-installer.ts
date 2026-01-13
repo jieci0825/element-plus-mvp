@@ -1,16 +1,10 @@
 import type { Plugin, App } from 'vue'
 
-const isInstalled = Symbol('isInstalled')
-
 /**
  * 提供一次性安装所有组件的函数
  */
 export function makeInstaller(components: Plugin[]) {
     const install = (app: App) => {
-        // 如果已经安装，则直接返回
-        if (app[isInstalled]) return
-        app[isInstalled] = true
-
         // 遍历组件列表安装组件
         components.forEach(component => {
             // 所有的组件都是通过 withInstall 包装过的，所以可以直接使用 app.use 安装

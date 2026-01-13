@@ -1,9 +1,12 @@
 {
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "composite": true,
-        "jsx": "preserve",
-        "lib": ["ES2018", "DOM", "DOM.Iterable"],
+        "declaration": true,
+        "declarationMap": false,
+        "emitDeclarationOnly": true,
+        "outDir": "dist/types",
+        "rootDir": ".",
+        "composite": false,
         "skipLibCheck": true
     },
     "include": ["packages"],

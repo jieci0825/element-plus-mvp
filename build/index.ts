@@ -1,7 +1,11 @@
 import fs from 'node:fs'
 
 import { DistDir } from './path-map'
-import { buildModules } from './tasks'
+import {
+    buildModules,
+    generateTypesDefinitions,
+    copyTypesAndFiles
+} from './tasks'
 import { runTask } from './helper'
 
 function clearDist() {
@@ -14,10 +18,12 @@ function createDist() {
     fs.mkdirSync(DistDir, { recursive: true })
 }
 
-async function run() {
-    runTask(clearDist)
-    runTask(createDist)
+async function build() {
+    await runTask(clearDist)
+    await runTask(createDist)
     await runTask(buildModules)
+    await runTask(generateTypesDefinitions)
+    await runTask(copyTypesAndFiles)
 }
 
-run()
+build()
