@@ -35,6 +35,8 @@ function formatKB(bytes) {
 // 编译 scss 文件到 css 文件
 async function compileScssToCss({ inputFile, outFile }) {
     const result = sass.compile(inputFile, {
+        // expanded: 展开样式，便于阅读
+        // compressed: 压缩一行
         style: MINIFY ? 'compressed' : 'expanded',
         loadPaths: [srcDir]
     })
